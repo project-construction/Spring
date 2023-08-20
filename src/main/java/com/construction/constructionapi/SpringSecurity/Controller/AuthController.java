@@ -20,6 +20,9 @@ public class AuthController {
     public JwtResponseDTO login(@RequestBody JwtRequestDTO request) {
 
         try {
+            System.out.println(request.getEmail());
+            System.out.println(request.getPassword());
+
             return authService.login(request);
         } catch (Exception e) {
             return new JwtResponseDTO(e.getMessage());
