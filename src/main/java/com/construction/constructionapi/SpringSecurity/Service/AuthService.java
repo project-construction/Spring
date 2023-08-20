@@ -29,7 +29,7 @@ public class AuthService {
 
     public JwtResponseDTO login(JwtRequestDTO request) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getId(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
 
         return createJwtToken(authentication);
     }
