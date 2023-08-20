@@ -20,17 +20,35 @@ public class Member {
     @Id
     private String email;
 
+    private String id;
+
     private String password;
 
     private String name;
+
+    private String team;
+
+    private String birth;
+
+    private String gender;
+
+    private String phone;
+
+    private String address;
 
     @Enumerated(EnumType.STRING)
     private Role role;
 
     public Member(MemberSignupRequestDTO request) {
+        id = request.getId();
         email = request.getEmail();
         password = request.getPassword();
         name = request.getName();
+        team = request.getTeam();
+        birth = request.getBirth();
+        gender = request.getGender();
+        phone = request.getPhone();
+        address = request.getAddress();
         role = Role.USER; // 회원가입하는 사용자 권한 기본 USER (임시)
     }
 

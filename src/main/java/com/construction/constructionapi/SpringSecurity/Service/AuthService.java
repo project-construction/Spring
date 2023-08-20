@@ -12,7 +12,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +29,7 @@ public class AuthService {
 
     public JwtResponseDTO login(JwtRequestDTO request) throws Exception {
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+                new UsernamePasswordAuthenticationToken(request.getId(), request.getPassword()));
 
         return createJwtToken(authentication);
     }
@@ -42,14 +41,17 @@ public class AuthService {
     }
 
     public String signup(MemberSignupRequestDTO request) {
+        //중복 유저 점검
         boolean existMember = memberRepository.existsById(request.getEmail());
 
-        if (existMember) return null;
+        if (existMember)
+            return null;
 
         Member member = new Member(request);
         member.encryptPassword(passwordEncoder);
 
         memberRepository.save(member);
+
         return member.getEmail();
     }
 }
