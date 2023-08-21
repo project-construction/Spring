@@ -6,6 +6,7 @@ import com.construction.constructionapi.SpringSecurity.DTO.MemberSignupRequestDT
 import com.construction.constructionapi.SpringSecurity.Service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,17 +18,18 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping(value = "login", produces = MediaType.APPLICATION_JSON_VALUE)
-    public JwtResponseDTO login(@RequestBody JwtRequestDTO request) {
+    public ResponseEntity<JwtResponseDTO> login(@RequestBody JwtRequestDTO request) {
 
         try {
             System.out.println(request.getEmail());
             System.out.println(request.getPassword());
 
-            return authService.login(request);
-        } catch (Exception e) {
-            return new JwtResponseDTO(e.getMessage());
+            return ResponseEntity.ok().body(authService.login(request));
+        }catch (Exception e) {
+                return ResponseEntity.badRequest().body(new JwtResponseDTO("failed"));
         }
     }
+
 
     @PostMapping(value = "signup", produces = MediaType.APPLICATION_JSON_VALUE)
     public String signup(@RequestBody MemberSignupRequestDTO request) {
