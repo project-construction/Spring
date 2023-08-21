@@ -37,6 +37,9 @@ public class AuthService {
     private JwtResponseDTO createJwtToken(Authentication authentication) {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         String token = jwtTokenProvider.generateToken(principal);
+
+        System.out.println(token);
+
         return new JwtResponseDTO(token);
     }
 
