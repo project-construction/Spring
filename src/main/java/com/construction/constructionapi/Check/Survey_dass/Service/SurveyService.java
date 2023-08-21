@@ -2,10 +2,13 @@ package com.construction.constructionapi.Check.Survey_dass.Service;
 
 
 
+import com.construction.constructionapi.Check.Domain.Score;
 import com.construction.constructionapi.Check.Repository.ScoreRepository;
+import com.construction.constructionapi.Check.Survey_dass.DTO.SurveyRequestDTO;
 import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 
@@ -26,13 +29,38 @@ public class SurveyService {
         //userid 도출
         String userId = memberRepository.findByEmail(userEmail).getUserid();
 
-        Date today = new Date();
-        System.out.println(today);
+        String today = LocalDate.now().toString();
 
-        System.out.println(scoreRepository.existsByUserIdAndDate(userId,today));
 
-        return scoreRepository.existsByUserIdAndDate(userId,today);
+        System.out.println(userEmail + " " + userId + " " + today);
+        /*System.out.println(scoreRepository.findByUserIdAndDate(userId, today).getStress());*/
+
+        Score record = scoreRepository.findByUserIdAndDate(userId, today);
+
+
+
+        if(record == null || record.getAnxiety() == 0) {
+            return true;
+        }
+
+        return false;
     }
 
+    public void updateRecord(String userEmail, SurveyRequestDTO surveyRequestDTO){
+        //userid 도출
+        String userId = memberRepository.findByEmail(userEmail).getUserid();
+
+        String today = LocalDate.now().toString();
+
+        Score record = Score.builder()
+                .userId(userId)
+                .anxiety(surveyRequestDTO.getAnxiety())
+                .depression(surveyRequestDTO.getDepression())
+                .stress(surveyRequestDTO.getStress())
+                .date(today)
+                .build();
+
+        scoreRepository.save(record);
+    }
 
 }

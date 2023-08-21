@@ -1,17 +1,15 @@
 package com.construction.constructionapi.Check.Domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "test")
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Score {
@@ -52,5 +50,5 @@ public class Score {
     private Integer stress;
 
     @Column(name = "date")
-    private Date date;
+    private String date;
 }

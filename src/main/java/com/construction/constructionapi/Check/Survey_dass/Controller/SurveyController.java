@@ -23,16 +23,38 @@ public class SurveyController {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
+    //dass-21 검사 점수 올리기
     @PostMapping(value = "update", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> survey(@RequestBody SurveyRequestDTO surveyRequestDTO){
+    public ResponseEntity<String> survey(HttpServletRequest request,
+                                         @RequestBody SurveyRequestDTO surveyRequestDTO){
 
+        String token = jwtTokenProvider.resolveToken(request);
 
-        return ResponseEntity.ok().body("asd");
+        if(token == null || !token.startsWith("Bearer ")){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String jwtToken = token.substring(7);
+
+        if(!jwtTokenProvider.validateToken(jwtToken)){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String userEmail = jwtTokenProvider.getUserPk(jwtToken);
+
+        if(userEmail == null){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        surveyService.updateRecord(userEmail, surveyRequestDTO);
+
+        return ResponseEntity.ok().body("success");
     }
 
     //금일 유저의 검사 유무 확인
     @GetMapping("/check")
     public ResponseEntity<String> check(HttpServletRequest request){
+
         String token = jwtTokenProvider.resolveToken(request);
 
         if(token == null || !token.startsWith("Bearer ")){
@@ -52,9 +74,12 @@ public class SurveyController {
 
         //유저가 검사 했는지 확인.
         if(surveyService.hasRecordToday(userEmail))
+            //true 면 검사 진행 해야함.
             return ResponseEntity.ok().body("true");
 
         return ResponseEntity.ok().body("false");
     }
+
+
 
 }

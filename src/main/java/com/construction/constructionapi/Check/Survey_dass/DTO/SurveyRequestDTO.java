@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SurveyRequestDTO {
-    private String depression;
-    private String anxiety;
-    private String stress;
+    private int depression;
+    private int anxiety;
+    private int stress;
 }

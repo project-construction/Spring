@@ -7,4 +7,7 @@ import java.util.Date;
 
 public interface ScoreRepository extends JpaRepository<Score, String> {
     boolean existsByUserIdAndDate(String userId, Date date);
+
+    Score findByUserIdAndDate(String userId, String date);
+
 }
