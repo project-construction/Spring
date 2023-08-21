@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -20,7 +17,7 @@ public class Member {
     @Id
     private String email;
 
-    private String id;
+    private String userid;
 
     private String password;
 
@@ -40,7 +37,7 @@ public class Member {
     private Role role;
 
     public Member(MemberSignupRequestDTO request) {
-        id = request.getId();
+        userid = request.getUserid();
         email = request.getEmail();
         password = request.getPassword();
         name = request.getName();

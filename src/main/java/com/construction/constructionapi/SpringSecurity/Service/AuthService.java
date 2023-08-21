@@ -27,10 +27,13 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtResponseDTO login(JwtRequestDTO request) throws Exception {
+    public JwtResponseDTO login(JwtRequestDTO request) throws Exception{
+
+        System.out.println(request.getEmail() + " " + request.getPassword());
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-
+        System.out.println("test");
         return createJwtToken(authentication);
     }
 
@@ -45,13 +48,14 @@ public class AuthService {
 
     public String signup(MemberSignupRequestDTO request) {
         //중복 유저 점검
-        boolean existMember = memberRepository.existsById(request.getEmail());
+        boolean existMember = memberRepository.existsById(request.getUserid());
 
         if (existMember)
             return null;
 
         Member member = new Member(request);
         member.encryptPassword(passwordEncoder);
+
 
         memberRepository.save(member);
 

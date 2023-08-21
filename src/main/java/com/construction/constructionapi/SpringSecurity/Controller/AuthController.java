@@ -21,14 +21,13 @@ public class AuthController {
     public ResponseEntity<JwtResponseDTO> login(@RequestBody JwtRequestDTO request) {
 
         try {
-            JwtResponseDTO tokenDTO = authService.login(request);
-
             return ResponseEntity.ok().body(authService.login(request));
         }catch (Exception e) {
+            System.out.println(e);
             return ResponseEntity.badRequest().body(new JwtResponseDTO("failed"));
         }
-    }
 
+    }
 
     @PostMapping(value = "signup", produces = MediaType.APPLICATION_JSON_VALUE)
     public String signup(@RequestBody MemberSignupRequestDTO request) {
