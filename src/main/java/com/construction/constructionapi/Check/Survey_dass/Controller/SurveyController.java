@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/survey")
+@CrossOrigin(origins = "http://localhost:3000")
 public class SurveyController {
 
     @Autowired
