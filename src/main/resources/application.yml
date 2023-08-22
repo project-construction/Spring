@@ -1,1 +1,14 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
 
+  datasource:
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://svc.sel3.cloudtype.app:31038/testUnity
+    username: "root"
+    password: 1234
