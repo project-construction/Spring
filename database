@@ -1,6 +1,0 @@
-CREATE TABLE Attend (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT(11),
-    attend_time DATETIME,
-    depart_time DATETIME
-);
