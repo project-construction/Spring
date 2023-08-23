@@ -82,7 +82,7 @@ public class UnityContentTestController {
                     testCatchMoleDTO.setCatchMole(map.get(key));
                     testService.fillCatchMole(userEmail, testCatchMoleDTO);
                     break;
-                case "doorlock":
+                case "doorLock":
                     TestDoorLockDTO testDoorLockDTO = new TestDoorLockDTO();
                     testDoorLockDTO.setDoorLock(map.get(key));
                     testService.fillDoorLock(userEmail, testDoorLockDTO);
@@ -92,12 +92,12 @@ public class UnityContentTestController {
                     testHammeringDTO.setHammering(map.get(key));
                     testService.fillHammering(userEmail, testHammeringDTO);
                     break;
-                case "nback":
+                case "nBack":
                     TestNBackDTO testNBackDTO = new TestNBackDTO();
                     testNBackDTO.setNBack(map.get(key));
                     testService.fillNBack(userEmail, testNBackDTO);
                     break;
-                case "numberpuzzle":
+                case "numberPuzzle":
                     TestNumberPuzzleDTO testNumberPuzzleDTO = new TestNumberPuzzleDTO();
                     testNumberPuzzleDTO.setNumber_puzzle(map.get(key));
                     testService.fillNumberPuzzle(userEmail, testNumberPuzzleDTO);
@@ -107,7 +107,7 @@ public class UnityContentTestController {
                     testSimonDTO.setSimon(map.get(key));
                     testService.fillSimon(userEmail, testSimonDTO);
                     break;
-                case"traffic_light":
+                case"trafficLight":
                     TestTrafficLightDTO testTrafficLightDTO = new TestTrafficLightDTO();
                     testTrafficLightDTO.setTrafficLight(map.get(key));
                     testService.fillTrafficLight(userEmail, testTrafficLightDTO);
