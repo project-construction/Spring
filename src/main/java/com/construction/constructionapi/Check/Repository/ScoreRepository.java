@@ -10,4 +10,6 @@ public interface ScoreRepository extends JpaRepository<Score, String> {
 
     Score findByUserIdAndDate(String userId, String date);
 
+    Score findByUserId(String userId);
+
 }
