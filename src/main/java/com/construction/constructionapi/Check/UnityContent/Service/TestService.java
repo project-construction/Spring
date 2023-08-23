@@ -6,7 +6,8 @@ import com.construction.constructionapi.Check.UnityContent.DTO.TestDTO.*;
 import com.construction.constructionapi.Check.UnityContent.Service.DAO.TestDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Service
 public class TestService {
@@ -48,7 +49,7 @@ public class TestService {
         Score score = testDAO.findAlLByID(userEmail);
         TestAllDTO testAllDTO = TestAllDTO.builder()
                 .anxiety(score.getAnxiety())
-                .date(LocalDateTime.parse(String.valueOf(score.getDate())))
+                .date(LocalDate.now().toString())
                 .hammering(score.getHammering())
                 .catchMole(score.getCatchMole())
                 .depression(score.getDepression())

@@ -34,5 +34,5 @@ public class TestAllDTO {
 
     int stress;
 
-    LocalDateTime date;
+    String date;
 }
