@@ -51,4 +51,7 @@ public class Score {
 
     @Column(name = "date")
     private String date;
+
+    @Column(name = "isCheck")
+    private boolean isCheck;
 }
