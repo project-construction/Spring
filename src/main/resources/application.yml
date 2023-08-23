@@ -12,3 +12,7 @@ spring:
     url: jdbc:mariadb://svc.sel3.cloudtype.app:31038/testUnity
     username: "root"
     password: 1234
+
+jwt:
+  secret: YOUR_SECRET_KEY
+  access-expired: 1800

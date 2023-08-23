@@ -1,6 +1,5 @@
 package com.construction.constructionapi.Notice.Domain;
 
-import com.construction.constructionapi.Notice.DTO.NoticeDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,10 +18,8 @@ public class Notice {
     private int id;
 
     @Column(name = "user_id")
-    private int userID;
+    private String userID;
     private String title;
     private String content;
-
-    @Column(name = "writeDate")
     private LocalDate write_date;
 }

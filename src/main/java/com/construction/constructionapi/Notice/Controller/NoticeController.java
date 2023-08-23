@@ -1,110 +1,145 @@
 package com.construction.constructionapi.Notice.Controller;
 
-import com.construction.constructionapi.Notice.DTO.NoticeDTO;
+import com.construction.constructionapi.Notice.DTO.NoticeUpdateDTO;
+import com.construction.constructionapi.Notice.DTO.NoticeWriteDTO;
 import com.construction.constructionapi.Notice.Domain.Notice;
 import com.construction.constructionapi.Notice.Service.NoticeService;
+import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
 @RequestMapping("/notice")
+@Transactional
 public class NoticeController {
 
     @Autowired
     private NoticeService noticeService;
 
+    private final JwtTokenProvider jwtTokenProvider;
+
+    public NoticeController(NoticeService noticeService, JwtTokenProvider jwtTokenProvider) {
+        this.noticeService = noticeService;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
+
+    // 공지사항 전체 조회
     @GetMapping("all")
-    public ResponseEntity<String> allSearchNotice(){
-        try{
-            List<Notice> notice = noticeService.allNotice();
-            System.out.println(notice);
-            if (notice.isEmpty()){
-                return ResponseEntity.ok().body("empty");
-            }else {
-                return ResponseEntity.ok().body("success");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
-        }
+    public ResponseEntity<List<Notice>> allSearchNotice(){
+        List<Notice> notice = noticeService.allNotice();
+        return ResponseEntity.ok().body(notice);
     }
 
+    // 공지사항 내용 상세 조회
     @GetMapping("{id}")
-    public ResponseEntity<String> noticeContent(@PathVariable int id){
-        try{
-            Notice notice = noticeService.noticeContent(id);
-            System.out.println(notice);
-            if (notice == null){
-                return ResponseEntity.ok().body("empty");
-            }else {
-                return ResponseEntity.ok().body("success");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
-        }
+    public ResponseEntity<Notice> noticeContent(@PathVariable int id){
+        Notice notice = noticeService.noticeContent(id);
+        return ResponseEntity.ok().body(notice);
     }
 
+    // 공지사항 제목 검색
     @GetMapping("/title/{title}")
-    public ResponseEntity<String> titleNotice(@PathVariable String title){
-        try{
-            List<Notice> notice = noticeService.titleNotice(title);
-            System.out.println(notice);
-            if (notice.isEmpty()){
-                return ResponseEntity.ok().body("empty");
-            }else {
-                return ResponseEntity.ok().body("success");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
-        }
+    public ResponseEntity<List<Notice>> titleNotice(@PathVariable String title){
+        List<Notice> notice = noticeService.titleNotice(title);
+        return ResponseEntity.ok().body(notice);
     }
 
+    // 공지사항 내용 검색
     @GetMapping("/content/{content}")
-    public ResponseEntity<String> contentNotice(@PathVariable String content){
-        try{
-            List<Notice> notice = noticeService.contentNotice(content);
-            System.out.println(notice);
-            if (notice.isEmpty()){
-                return ResponseEntity.ok().body("empty");
-            }else {
-                return ResponseEntity.ok().body("success");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
-        }
+    public ResponseEntity<List<Notice>> contentNotice(@PathVariable String content){
+        List<Notice> notice = noticeService.contentNotice(content);
+        return ResponseEntity.ok().body(notice);
     }
 
+    // 공지사항 작성자 검색
+    // 수정 필요
     @GetMapping("writer/{id}")
-    public ResponseEntity<String> writerNotice(@PathVariable int id){
-        try{
-            List<Notice> notice = noticeService.writerNotice(id);
-            System.out.println(notice);
-            if (notice.isEmpty()){
-                return ResponseEntity.ok().body("empty");
-            }else {
-                return ResponseEntity.ok().body("success");
-            }
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
-        }
+    public ResponseEntity<List<Notice>> writerNotice(@PathVariable String id){
+        List<Notice> notice = noticeService.writerNotice(id);
+        return ResponseEntity.ok().body(notice);
     }
 
-    @PostMapping("/write")
-    public ResponseEntity<String> addNotice(@RequestBody NoticeDTO noticeDTO){
-        try {
-            noticeService.addNotice(noticeDTO);
-            return ResponseEntity.ok().body("success");
-        }catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.badRequest().body("failed");
+
+
+    // 공지사항 작성
+    @PostMapping(value = "/write", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> addNotice(HttpServletRequest request,
+                                         @RequestBody NoticeWriteDTO noticeWriteDTO){
+
+        String token = jwtTokenProvider.resolveToken(request);
+
+        if(token == null || !token.startsWith("Bearer ")){
+            return ResponseEntity.badRequest().body("Invalid token");
         }
 
+        String jwtToken = token.substring(7);
+
+        if(!jwtTokenProvider.validateToken(jwtToken)){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String userEmail = jwtTokenProvider.getUserPk(jwtToken);
+
+        if(userEmail == null){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        noticeService.addNotice(userEmail, noticeWriteDTO);
+        return ResponseEntity.ok().body("success");
+    }
+
+    // 공지사항 수정
+    @PostMapping("/update/write")
+    public ResponseEntity<String> updateNotice(@RequestBody NoticeUpdateDTO noticeWriteDTO){
+        noticeService.updateNotice(noticeWriteDTO);
+        return ResponseEntity.ok().body("success");
+    }
+
+    // 공지사항 삭제
+    @GetMapping("delete/{id}")
+    public ResponseEntity<String> deleteNotice(@PathVariable int id){
+        noticeService.deleteNotice(id);
+        return ResponseEntity.ok().body("success");
+    }
+
+
+
+
+
+    @GetMapping(value = "/check/{id}")
+    public ResponseEntity<String> checkUpdate(HttpServletRequest request,
+                                              @PathVariable int id){
+
+        String token = jwtTokenProvider.resolveToken(request);
+
+        if(token == null || !token.startsWith("Bearer ")){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String jwtToken = token.substring(7);
+
+        if(!jwtTokenProvider.validateToken(jwtToken)){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String userEmail = jwtTokenProvider.getUserPk(jwtToken);
+
+        if(userEmail == null){
+            return ResponseEntity.badRequest().body("Invalid token");
+        }
+
+        String noticeEmail = noticeService.noticeContent(id).getUserID();
+
+        if (noticeEmail.equals(userEmail)) {
+            return ResponseEntity.ok().body("success");
+        }else{
+            return ResponseEntity.badRequest().body("failed");
+        }
     }
 }
