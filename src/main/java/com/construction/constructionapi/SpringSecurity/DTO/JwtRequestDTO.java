@@ -6,9 +6,17 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 public class JwtRequestDTO {
 
     private String email;
     private String password;
+
+    public JwtRequestDTO() {
+    }
+
+    public JwtRequestDTO(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }
