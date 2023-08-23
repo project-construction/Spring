@@ -75,46 +75,52 @@ public class UnityContentTestController {
         if(userEmail == null){
             return ResponseEntity.badRequest().body("Invalid token");
         }
-        for (String key:map.keySet()) {
-            switch (key){
-                case "catchMole":
-                    TestCatchMoleDTO testCatchMoleDTO = new TestCatchMoleDTO();
-                    testCatchMoleDTO.setCatchMole(map.get(key));
-                    testService.fillCatchMole(userEmail, testCatchMoleDTO);
-                    break;
-                case "doorLock":
-                    TestDoorLockDTO testDoorLockDTO = new TestDoorLockDTO();
-                    testDoorLockDTO.setDoorLock(map.get(key));
-                    testService.fillDoorLock(userEmail, testDoorLockDTO);
-                    break;
-                case "hammering":
-                    TestHammeringDTO testHammeringDTO = new TestHammeringDTO();
-                    testHammeringDTO.setHammering(map.get(key));
-                    testService.fillHammering(userEmail, testHammeringDTO);
-                    break;
-                case "nBack":
-                    TestNBackDTO testNBackDTO = new TestNBackDTO();
-                    testNBackDTO.setNBack(map.get(key));
-                    testService.fillNBack(userEmail, testNBackDTO);
-                    break;
-                case "numberPuzzle":
-                    TestNumberPuzzleDTO testNumberPuzzleDTO = new TestNumberPuzzleDTO();
-                    testNumberPuzzleDTO.setNumber_puzzle(map.get(key));
-                    testService.fillNumberPuzzle(userEmail, testNumberPuzzleDTO);
-                    break;
-                case "simon":
-                    TestSimonDTO testSimonDTO = new TestSimonDTO();
-                    testSimonDTO.setSimon(map.get(key));
-                    testService.fillSimon(userEmail, testSimonDTO);
-                    break;
-                case"trafficLight":
-                    TestTrafficLightDTO testTrafficLightDTO = new TestTrafficLightDTO();
-                    testTrafficLightDTO.setTrafficLight(map.get(key));
-                    testService.fillTrafficLight(userEmail, testTrafficLightDTO);
-                    break;
+        try{
+            for (String key:map.keySet()) {
+                switch (key){
+                    case "catchMole":
+                        TestCatchMoleDTO testCatchMoleDTO = new TestCatchMoleDTO();
+                        testCatchMoleDTO.setCatchMole(map.get(key));
+                        testService.fillCatchMole(userEmail, testCatchMoleDTO);
+                        break;
+                    case "doorLock":
+                        TestDoorLockDTO testDoorLockDTO = new TestDoorLockDTO();
+                        testDoorLockDTO.setDoorLock(map.get(key));
+                        testService.fillDoorLock(userEmail, testDoorLockDTO);
+                        break;
+                    case "hammering":
+                        TestHammeringDTO testHammeringDTO = new TestHammeringDTO();
+                        testHammeringDTO.setHammering(map.get(key));
+                        testService.fillHammering(userEmail, testHammeringDTO);
+                        break;
+                    case "nBack":
+                        TestNBackDTO testNBackDTO = new TestNBackDTO();
+                        testNBackDTO.setNBack(map.get(key));
+                        testService.fillNBack(userEmail, testNBackDTO);
+                        break;
+                    case "numberPuzzle":
+                        TestNumberPuzzleDTO testNumberPuzzleDTO = new TestNumberPuzzleDTO();
+                        testNumberPuzzleDTO.setNumber_puzzle(map.get(key));
+                        testService.fillNumberPuzzle(userEmail, testNumberPuzzleDTO);
+                        break;
+                    case "simon":
+                        TestSimonDTO testSimonDTO = new TestSimonDTO();
+                        testSimonDTO.setSimon(map.get(key));
+                        testService.fillSimon(userEmail, testSimonDTO);
+                        break;
+                    case"trafficLight":
+                        TestTrafficLightDTO testTrafficLightDTO = new TestTrafficLightDTO();
+                        testTrafficLightDTO.setTrafficLight(map.get(key));
+                        testService.fillTrafficLight(userEmail, testTrafficLightDTO);
+                        break;
+                }
             }
+            return ResponseEntity.ok().body("success");
         }
-        return ResponseEntity.ok("정상적으로 잘 들어감");
+        catch (Exception e){
+            return ResponseEntity.ok().body("failed");
+        }
+
     }
 
 

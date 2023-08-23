@@ -45,21 +45,22 @@ public class TestService {
     }
 
     public TestAllDTO findAllById(String userEmail){
-        TestAllDTO testAllDTO = new TestAllDTO();
         Score score = testDAO.findAlLByID(userEmail);
+        TestAllDTO testAllDTO = TestAllDTO.builder()
+                .anxiety(score.getAnxiety())
+                .date(LocalDateTime.parse(String.valueOf(score.getDate())))
+                .hammering(score.getHammering())
+                .catchMole(score.getCatchMole())
+                .depression(score.getDepression())
+                .simon(score.getSimon())
+                .stress(score.getStress())
+                .doorLock(score.getDoorlock())
+                .nBack(score.getNBack())
+                .trafficLight(score.getTrafficLight())
+                .userid(score.getUserId())
+                .numberPuzzle(score.getNumberPuzzle())
+                .build();
 
-        testAllDTO.setAnxiety(score.getAnxiety());
-        testAllDTO.setDate(LocalDateTime.parse(String.valueOf(score.getDate())));
-        testAllDTO.setHammering(score.getHammering());
-        testAllDTO.setCatchMole(score.getCatchMole());
-        testAllDTO.setDepression(score.getDepression());
-        testAllDTO.setSimon(score.getSimon());
-        testAllDTO.setStress(score.getStress());
-        testAllDTO.setDoorLock(score.getDoorlock());
-        testAllDTO.setNBack(score.getNBack());
-        testAllDTO.setTrafficLight(score.getTrafficLight());
-        testAllDTO.setUserid(score.getUserId());
-        testAllDTO.setNumberPuzzle(score.getNumberPuzzle());
         return testAllDTO;
     }
 }
