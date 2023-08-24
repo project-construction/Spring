@@ -49,7 +49,7 @@ public class UnityContentTestController {
             testAllDTO = testService.findAllById(userEmail);
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(TestAllDTO.builder().build());
         }
 
         return ResponseEntity.ok(testAllDTO);
