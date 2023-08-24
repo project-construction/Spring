@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/survey")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://web-react-worker-lyc2mllonybvq.sel3.cloudtype.app")
 public class SurveyController {
 
     @Autowired
