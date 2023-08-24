@@ -32,37 +32,32 @@ public class NoticeController {
     // 공지사항 전체 조회
     @GetMapping("all")
     public ResponseEntity<List<Notice>> allSearchNotice(){
-        List<Notice> notice = noticeService.allNotice();
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.allNotice());
     }
 
     // 공지사항 내용 상세 조회
     @GetMapping("{id}")
     public ResponseEntity<Notice> noticeContent(@PathVariable int id){
-        Notice notice = noticeService.noticeContent(id);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.noticeContent(id));
     }
 
     // 공지사항 제목 검색
     @GetMapping("/title/{title}")
     public ResponseEntity<List<Notice>> titleNotice(@PathVariable String title){
-        List<Notice> notice = noticeService.titleNotice(title);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.titleNotice(title));
     }
 
     // 공지사항 내용 검색
     @GetMapping("/content/{content}")
     public ResponseEntity<List<Notice>> contentNotice(@PathVariable String content){
-        List<Notice> notice = noticeService.contentNotice(content);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.contentNotice(content));
     }
 
     // 공지사항 작성자 검색
     // 수정 필요
     @GetMapping("writer/{id}")
     public ResponseEntity<List<Notice>> writerNotice(@PathVariable String id){
-        List<Notice> notice = noticeService.writerNotice(id);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.writerNotice(id));
     }
 
 
@@ -95,7 +90,7 @@ public class NoticeController {
     }
 
     // 공지사항 수정
-    @PostMapping("/update/write")
+    @PostMapping("/update")
     public ResponseEntity<String> updateNotice(@RequestBody NoticeUpdateDTO noticeWriteDTO){
         noticeService.updateNotice(noticeWriteDTO);
         return ResponseEntity.ok().body("success");
