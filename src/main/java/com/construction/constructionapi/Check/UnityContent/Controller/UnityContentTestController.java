@@ -5,6 +5,7 @@ import com.construction.constructionapi.Check.UnityContent.Service.TestService;
 import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/unityContent")
-@CrossOrigin(origins = "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app", allowedHeaders = {"Access-Control-Allow-Origin"})
+@CrossOrigin(origins = "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app")
 public class UnityContentTestController {
     private final TestService testService;
     private final JwtTokenProvider jwtTokenProvider;
@@ -56,7 +57,7 @@ public class UnityContentTestController {
 
     @PostMapping("/insertContent")
     public ResponseEntity<String> doorockContent(HttpServletRequest request , @RequestBody Map<String, Integer> map){
-        System.out.println("asd");
+
         String token = jwtTokenProvider.resolveToken(request);
 
         if(token == null || !token.startsWith("Bearer ")){
@@ -114,7 +115,13 @@ public class UnityContentTestController {
                         break;
                 }
             }
-            return ResponseEntity.ok().body("success");
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Access-Control-Allow-Origin", "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app");
+            
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body("success");
         }
         catch (Exception e){
             return ResponseEntity.ok().body("failed");
