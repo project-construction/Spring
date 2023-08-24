@@ -13,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/unityContent")
-@Tag(name = "UnityContents", description = "Unity 데이터 수집 컨트롤러")
 @CrossOrigin(origins = "http://localhost:3000")
 public class UnityContentTestController {
     private final TestService testService;
