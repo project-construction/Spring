@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.construction.constructionapi.SpringSecurity.Model.Role.USER;
@@ -38,7 +37,7 @@ public class CodeService {
             }
         }
 
-        attendCode.setDate(LocalDateTime.now().toString());
+        attendCode.setDate(LocalDate.now().toString());
         attendCode.setTeam(team);
         attendCode.setCode(code);
 

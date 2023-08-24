@@ -152,7 +152,7 @@ public class AttendController {
         try {
             if (codeService.setCode(userEmail, codeDTO.getCode()))
                 return ResponseEntity.ok("success");
-            return ResponseEntity.ok("failed");
+            return ResponseEntity.ok("rejected");
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.badRequest().body("failed");

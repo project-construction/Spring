@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public class AttendService {
@@ -33,40 +31,34 @@ public class AttendService {
         System.out.println(userEmail + " " + userId + " " + today);
         /*System.out.println(scoreRepository.findByUserIdAndDate(userId, today).getStress());*/
 
-        List<Score> scores = scoreRepository.findByUserId(userId);
+        Score score = scoreRepository.findByUserIdAndDate(userId, today);
 
-        for (int i = 0; i < scores.size(); i++) {
-            if (scores.get(i).isCheck() && scores.get(i).getDate().substring(0, 10).equals(today)) {
-                return true;
-            }
+        if (score != null && score.isCheck()) {
+            return true;
         }
+
         return false;
     }
 
-    public void makeAttend(String userEmail){
+    public void makeAttend(String userEmail) {
         String userId = memberRepository.findByEmail(userEmail).getUserid();
 
         Score score = new Score();
         score.setUserId(userId);
-        score.setDate(LocalDateTime.now().toString());
+        score.setDate(LocalDate.now().toString());
         scoreRepository.save(score);
     }
 
     // ischeck update
-    public boolean attend(String userEmail){
+    public boolean attend(String userEmail) {
         String userId = memberRepository.findByEmail(userEmail).getUserid();
         String today = LocalDate.now().toString();
-        List<Score> scores = scoreRepository.findByUserId(userId);
+        Score score = scoreRepository.findByUserIdAndDate(userId, today);
+        if (score == null) return false;
 
-        for (int i = 0; i < scores.size(); i++) {
-            if (scores.get(i).getDate().substring(0, 10).equals(today)) {
-                Score score = scores.get(i);
-                score.setCheck(true);
-                score.setDate(LocalDateTime.now().toString());
-                scoreRepository.save(score);
-                return true;
-            }
-        }
-        return false;
+        score.setCheck(true);
+        score.setDate(LocalDate.now().toString());
+        scoreRepository.save(score);
+        return true;
     }
 }
