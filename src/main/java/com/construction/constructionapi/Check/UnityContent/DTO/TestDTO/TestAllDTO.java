@@ -3,6 +3,7 @@ package com.construction.constructionapi.Check.UnityContent.DTO.TestDTO;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
@@ -34,5 +35,5 @@ public class TestAllDTO {
 
     int stress;
 
-    LocalDateTime date;
+    String date;
 }

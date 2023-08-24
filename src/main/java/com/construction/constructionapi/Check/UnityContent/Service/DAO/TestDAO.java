@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -28,13 +29,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(member.getUserid());
         if(score != null){
             score.setDoorlock(testDoorLockDTO.getDoorLock());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setDoorlock(testDoorLockDTO.getDoorLock());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -45,13 +46,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setHammering((float) testHammeringDTO.getHammering());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setHammering((float) testHammeringDTO.getHammering());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -62,13 +63,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setNBack(testNBackDTO.getNBack());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setNBack(testNBackDTO.getNBack());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -79,13 +80,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setSimon(testSimonDTO.getSimon());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setSimon(testSimonDTO.getSimon());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -97,13 +98,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setTrafficLight((float) testTrafficLightDTO.getTrafficLight());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setTrafficLight((float) testTrafficLightDTO.getTrafficLight());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -114,13 +115,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setNumberPuzzle(testNumberPuzzleDTO.getNumber_puzzle());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setNumberPuzzle(testNumberPuzzleDTO.getNumber_puzzle());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
@@ -131,13 +132,13 @@ public class TestDAO {
         Score score = scoreRepository.findByUserId(String.valueOf(member.getUserid()));
         if(score != null){
             score.setCatchMole(testCatchMoleDTO.getCatchMole());
-            score.setDate(String.valueOf(LocalDateTime.now()));
+            score.setDate(LocalDate.now().toString());
         }
         else{
             Score t = new Score();
             t.setCatchMole(testCatchMoleDTO.getCatchMole());
             t.setUserId(String.valueOf(member.getUserid()));
-            t.setDate(String.valueOf(LocalDateTime.now()));
+            t.setDate(LocalDate.now().toString());
             scoreRepository.save(t);
         }
     }
