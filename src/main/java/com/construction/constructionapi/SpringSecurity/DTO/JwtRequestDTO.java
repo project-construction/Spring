@@ -9,10 +9,8 @@ import lombok.Setter;
 public class JwtRequestDTO {
 
     private String email;
-    private String password;
 
-    public JwtRequestDTO() {
-    }
+    private String password;
 
     public JwtRequestDTO(String email, String password) {
         this.email = email;

@@ -3,7 +3,7 @@ package com.construction.constructionapi.Check.Domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -12,6 +12,7 @@ import java.util.Date;
 @Setter
 @Builder
 @AllArgsConstructor
+
 public class Score {
 
     @Id
@@ -39,6 +40,7 @@ public class Score {
 
     @Column(name = "CatchMole")
     private Integer catchMole;
+
     @Column(name = "NumberPuzzle")
     private Integer numberPuzzle;
 
@@ -54,7 +56,7 @@ public class Score {
     @Column(name = "date")
     private String date;
 
-    @Column(name = "is_check")
+    @Column(name = "isCheck")
     private boolean isCheck;
 
     public Score(){
@@ -68,7 +70,7 @@ public class Score {
         this.depression = 0;
         this.anxiety = 0;
         this.stress = 0;
-        this.date = String.valueOf(LocalDateTime.now());
+        this.date = String.valueOf(LocalDate.now());
         this.isCheck = false;
 
     }
