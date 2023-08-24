@@ -80,7 +80,4 @@ public class SurveyController {
 
         return ResponseEntity.ok().body("false");
     }
-
-
-
 }

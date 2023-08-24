@@ -40,8 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // login 없이 접근 허용 하는 url
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/survey/**").permitAll()
+                .antMatchers("/attend/**").permitAll()
                 .antMatchers("/notice/**").permitAll()
                 .antMatchers("/unityContent/**").permitAll()
+
                 // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
                 .antMatchers("/admin").hasRole("ADMIN")
                 // 그 외 모든 요청은 인증과정 필요
