@@ -1,6 +1,5 @@
 package com.construction.constructionapi.Check.UnityContent.Controller;
 
-
 import com.construction.constructionapi.Check.UnityContent.DTO.TestDTO.*;
 import com.construction.constructionapi.Check.UnityContent.Service.TestService;
 import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
@@ -58,6 +57,7 @@ public class UnityContentTestController {
 
     @PostMapping("/insertContent")
     public ResponseEntity<String> doorockContent(HttpServletRequest request , @RequestBody Map<String, Integer> map){
+        System.out.println("asd");
         String token = jwtTokenProvider.resolveToken(request);
 
         if(token == null || !token.startsWith("Bearer ")){
