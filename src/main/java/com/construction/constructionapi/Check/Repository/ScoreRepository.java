@@ -9,8 +9,6 @@ import java.util.List;
 public interface ScoreRepository extends JpaRepository<Score, String> {
     boolean existsByUserIdAndDate(String userId, Date date);
 
-    Score findByUserId(String userId);
-
     Score findByUserIdAndDate(String userId, String date);
 
     Score findByUserId(String userId);
