@@ -24,9 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/file/**",
             "/image/**",
             "/swagger/**",
-            "/swagger-ui/**",
+            "/swagger-ui/**"
             // other public endpoints of your API may be appended to this array
-            "/h2/**"
     };
 
     @Bean

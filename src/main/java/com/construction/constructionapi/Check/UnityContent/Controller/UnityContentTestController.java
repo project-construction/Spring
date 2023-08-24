@@ -13,7 +13,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/unityContent")
-@CrossOrigin(origins = "https://web-react-worker-lyc2mllonybvq.sel3.cloudtype.app")
+@CrossOrigin(origins = "https://web-react-worker-lyc2mllonybvq.sel3.cloudtype.app", allowedHeaders = {"Authorization"})
 public class UnityContentTestController {
     private final TestService testService;
     private final JwtTokenProvider jwtTokenProvider;
