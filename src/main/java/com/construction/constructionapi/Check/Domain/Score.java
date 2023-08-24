@@ -12,6 +12,7 @@ import java.util.Date;
 @Setter
 @Builder
 @AllArgsConstructor
+
 public class Score {
 
     @Id
@@ -39,6 +40,7 @@ public class Score {
 
     @Column(name = "CatchMole")
     private Integer catchMole;
+
     @Column(name = "NumberPuzzle")
     private Integer numberPuzzle;
 
