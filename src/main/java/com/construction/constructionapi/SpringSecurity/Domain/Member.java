@@ -5,11 +5,13 @@ import com.construction.constructionapi.SpringSecurity.DTO.MemberSignupRequestDT
 import com.construction.constructionapi.SpringSecurity.Model.Role;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class Member {

@@ -44,9 +44,9 @@ public class JwtTokenProvider {
 
         Map<String, Object> claims = new HashMap<>();
 
-        val isAdmin = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_"+ Role.ADMIN));
-        if (isAdmin) {
-            claims.put("role","admin");
+        val isManager = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_"+ Role.MANAGER));
+        if (isManager) {
+            claims.put("role","manager");
         } else {
             claims.put("role","user");
         }

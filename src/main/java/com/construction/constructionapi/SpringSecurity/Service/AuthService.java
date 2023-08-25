@@ -5,6 +5,7 @@ import com.construction.constructionapi.SpringSecurity.DTO.JwtRequestDTO;
 import com.construction.constructionapi.SpringSecurity.DTO.JwtResponseDTO;
 import com.construction.constructionapi.SpringSecurity.DTO.MemberSignupRequestDTO;
 import com.construction.constructionapi.SpringSecurity.Domain.Member;
+import com.construction.constructionapi.SpringSecurity.Model.Role;
 import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
 import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
 import com.construction.constructionapi.SpringSecurity.Security.UserDetailsImpl;
@@ -29,11 +30,9 @@ public class AuthService {
 
     public JwtResponseDTO login(JwtRequestDTO request) throws Exception{
 
-        System.out.println(request.getEmail() + " " + request.getPassword());
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        System.out.println("test");
+
         return createJwtToken(authentication);
     }
 
@@ -41,7 +40,6 @@ public class AuthService {
         UserDetailsImpl principal = (UserDetailsImpl) authentication.getPrincipal();
         String token = jwtTokenProvider.generateToken(principal);
 
-        System.out.println(token);
 
         return new JwtResponseDTO(token);
     }
@@ -54,6 +52,13 @@ public class AuthService {
             return null;
 
         Member member = new Member(request);
+
+        if(request.getRole().equals("MANAGER")){
+            member.setRole(Role.MANAGER);
+        }else if(request.getRole().equals("USER")){
+            member.setRole(Role.USER);
+        }
+
         member.encryptPassword(passwordEncoder);
 
 
