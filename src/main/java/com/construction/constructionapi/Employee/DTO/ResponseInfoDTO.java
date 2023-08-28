@@ -1,12 +1,14 @@
 package com.construction.constructionapi.Employee.DTO;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class ResponseGuestDTO {
+@Builder
+public class ResponseInfoDTO {
 
     private String email;
     private String name;

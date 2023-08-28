@@ -1,6 +1,9 @@
 package com.construction.constructionapi.Employee.Service;
 
-import com.construction.constructionapi.Employee.DTO.ResponseGuestDTO;
+import com.construction.constructionapi.Check.Domain.Score;
+import com.construction.constructionapi.Check.Repository.ScoreRepository;
+import com.construction.constructionapi.Employee.DTO.ResponseInfoDTO;
+import com.construction.constructionapi.Employee.DTO.ResponseScoreDTO;
 import com.construction.constructionapi.Member.Domain.Member;
 import com.construction.constructionapi.Member.Model.Role;
 import com.construction.constructionapi.Member.Repository.MemberRepository;
@@ -16,17 +19,20 @@ import java.util.stream.Collectors;
 public class EmployeeMangerService {
 
     private final MemberRepository memberRepository;
+    private final ScoreRepository scoreRepository;
 
     @Autowired
-    public EmployeeMangerService(MemberRepository memberRepository){
+    public EmployeeMangerService(MemberRepository memberRepository,
+                                 ScoreRepository scoreRepository){
         this.memberRepository = memberRepository;
+        this.scoreRepository = scoreRepository;
     }
 
-    public List<ResponseGuestDTO> allGuestWorkers(){
+    public List<ResponseInfoDTO> allGuestWorkers(){
         List<Member> guestMembers = memberRepository.findAllByRole(Role.GUEST);
         return guestMembers.stream()
                 .map(member -> {
-                    ResponseGuestDTO guestDTO = new ResponseGuestDTO();
+                    ResponseInfoDTO guestDTO = ResponseInfoDTO.builder().build();
                     guestDTO.setEmail(member.getEmail());
                     guestDTO.setName(member.getName());
                     guestDTO.setTeam(member.getTeam());
@@ -55,5 +61,41 @@ public class EmployeeMangerService {
                 .toList();
     }
 
+    public ResponseInfoDTO workerInfo(String email){
+        Member mem = memberRepository.findByEmail(email);
 
+        return ResponseInfoDTO.builder()
+                .email(mem.getEmail())
+                .name(mem.getName())
+                .team(mem.getTeam())
+                .address(mem.getAddress())
+                .birth(mem.getBirth())
+                .phone(mem.getPhone())
+                .gender(mem.getGender())
+                .build();
+    }
+
+    public List<ResponseScoreDTO> workerScore(String email){
+        String userId = memberRepository.findByEmail(email).getUserid();
+
+        return scoreRepository.findAllByUserId(userId).stream()
+                .map(score -> {
+                    ResponseScoreDTO dto = ResponseScoreDTO.builder()
+                            .doorlock(score.getDoorlock())
+                            .hammering(score.getHammering())
+                            .nBack(score.getNBack())
+                            .simon(score.getSimon())
+                            .trafficLight(score.getTrafficLight())
+                            .catchMole(score.getCatchMole())
+                            .numberPuzzle(score.getNumberPuzzle())
+                            .depression(score.getDepression())
+                            .anxiety(score.getAnxiety())
+                            .stress(score.getStress())
+                            .date(score.getDate())
+                            .build();
+
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }
