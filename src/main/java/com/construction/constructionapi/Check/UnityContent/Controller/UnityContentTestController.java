@@ -13,7 +13,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/unityContent")
-@CrossOrigin(origins = "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app")
 public class UnityContentTestController {
     private final TestService testService;
     private final JwtTokenProvider jwtTokenProvider;

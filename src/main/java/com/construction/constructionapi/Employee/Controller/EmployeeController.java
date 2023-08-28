@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/employee")
-@CrossOrigin(origins = "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app")
 public class EmployeeController {
     //근로자 관리
 
@@ -48,6 +47,4 @@ public class EmployeeController {
     public List<ResponseScoreDTO> detailScore(@RequestParam String email) {
         return employeeMangerService.workerScore(email);
     }
-
-
 }

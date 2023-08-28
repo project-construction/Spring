@@ -1,4 +1,4 @@
-package com.construction.constructionapi.Member.config;
+package com.construction.constructionapi.Config.SecurityConfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
