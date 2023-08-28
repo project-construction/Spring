@@ -33,4 +33,8 @@ public class EmployeeController {
         return "success";
     }
 
+    @PostMapping("/team")
+    public List<String> getAllWorkerNamesInTeam(@RequestParam String teamName) {
+        return employeeMangerService.getAllWorkerNamesInTeam(teamName);
+    }
 }

@@ -49,5 +49,11 @@ public class EmployeeMangerService {
         memberRepository.save(member);
     }
 
+    public List<String> getAllWorkerNamesInTeam(String teamName){
+        return memberRepository.findAllByTeamAndRole(teamName, Role.USER).stream()
+                .map(Member::getName)
+                .toList();
+    }
+
 
 }
