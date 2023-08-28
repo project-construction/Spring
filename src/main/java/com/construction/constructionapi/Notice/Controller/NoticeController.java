@@ -4,7 +4,7 @@ import com.construction.constructionapi.Notice.DTO.NoticeUpdateDTO;
 import com.construction.constructionapi.Notice.DTO.NoticeWriteDTO;
 import com.construction.constructionapi.Notice.Domain.Notice;
 import com.construction.constructionapi.Notice.Service.NoticeService;
-import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
+import com.construction.constructionapi.Member.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

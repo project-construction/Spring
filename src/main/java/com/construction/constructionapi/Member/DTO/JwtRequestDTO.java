@@ -1,6 +1,5 @@
-package com.construction.constructionapi.SpringSecurity.DTO;
+package com.construction.constructionapi.Member.DTO;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

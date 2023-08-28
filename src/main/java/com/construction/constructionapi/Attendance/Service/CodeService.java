@@ -2,14 +2,14 @@ package com.construction.constructionapi.Attendance.Service;
 
 import com.construction.constructionapi.Attendance.Domain.AttendCode;
 import com.construction.constructionapi.Attendance.Repository.CodeRepository;
-import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
+import com.construction.constructionapi.Member.Repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.construction.constructionapi.SpringSecurity.Model.Role.USER;
+import static com.construction.constructionapi.Member.Model.Role.USER;
 
 
 @Service

@@ -5,11 +5,10 @@ package com.construction.constructionapi.Check.Survey_dass.Service;
 import com.construction.constructionapi.Check.Domain.Score;
 import com.construction.constructionapi.Check.Repository.ScoreRepository;
 import com.construction.constructionapi.Check.Survey_dass.DTO.SurveyRequestDTO;
-import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
+import com.construction.constructionapi.Member.Repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @Service

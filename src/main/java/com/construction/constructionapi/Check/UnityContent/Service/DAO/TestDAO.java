@@ -3,14 +3,13 @@ package com.construction.constructionapi.Check.UnityContent.Service.DAO;
 import com.construction.constructionapi.Check.Domain.Score;
 import com.construction.constructionapi.Check.Repository.ScoreRepository;
 import com.construction.constructionapi.Check.UnityContent.DTO.TestDTO.*;
-import com.construction.constructionapi.SpringSecurity.Domain.Member;
-import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
+import com.construction.constructionapi.Member.Domain.Member;
+import com.construction.constructionapi.Member.Repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Component
 public class TestDAO {

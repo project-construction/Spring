@@ -2,7 +2,7 @@ package com.construction.constructionapi.Check.Survey_dass.Controller;
 
 import com.construction.constructionapi.Check.Survey_dass.DTO.SurveyRequestDTO;
 import com.construction.constructionapi.Check.Survey_dass.Service.SurveyService;
-import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
+import com.construction.constructionapi.Member.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

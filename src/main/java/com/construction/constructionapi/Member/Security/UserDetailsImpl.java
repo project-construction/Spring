@@ -1,14 +1,13 @@
-package com.construction.constructionapi.SpringSecurity.Security;
+package com.construction.constructionapi.Member.Security;
 
-import com.construction.constructionapi.SpringSecurity.Domain.Member;
-import com.construction.constructionapi.SpringSecurity.Model.Role;
+import com.construction.constructionapi.Member.Domain.Member;
+import com.construction.constructionapi.Member.Model.Role;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +16,8 @@ import java.util.Collection;
 public class UserDetailsImpl implements UserDetails {
     private static final String ROLE_PREFIX = "ROLE_";
     private final Member member;
+    private final boolean isManager;
+    private final boolean isApproved; // 승인 여부를 저장하는 필드
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -60,5 +61,12 @@ public class UserDetailsImpl implements UserDetails {
 
     public String getName() {
         return member.getName();
+    }
+    public boolean isManager() {
+        return isManager;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
     }
 }

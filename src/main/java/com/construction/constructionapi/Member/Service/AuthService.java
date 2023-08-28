@@ -1,14 +1,14 @@
-package com.construction.constructionapi.SpringSecurity.Service;
+package com.construction.constructionapi.Member.Service;
 
 
-import com.construction.constructionapi.SpringSecurity.DTO.JwtRequestDTO;
-import com.construction.constructionapi.SpringSecurity.DTO.JwtResponseDTO;
-import com.construction.constructionapi.SpringSecurity.DTO.MemberSignupRequestDTO;
-import com.construction.constructionapi.SpringSecurity.Domain.Member;
-import com.construction.constructionapi.SpringSecurity.Model.Role;
-import com.construction.constructionapi.SpringSecurity.Repository.MemberRepository;
-import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
-import com.construction.constructionapi.SpringSecurity.Security.UserDetailsImpl;
+import com.construction.constructionapi.Member.DTO.JwtRequestDTO;
+import com.construction.constructionapi.Member.DTO.JwtResponseDTO;
+import com.construction.constructionapi.Member.DTO.MemberSignupRequestDTO;
+import com.construction.constructionapi.Member.Domain.Member;
+import com.construction.constructionapi.Member.Model.Role;
+import com.construction.constructionapi.Member.Repository.MemberRepository;
+import com.construction.constructionapi.Member.Security.JwtTokenProvider;
+import com.construction.constructionapi.Member.Security.UserDetailsImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -44,26 +44,27 @@ public class AuthService {
         return new JwtResponseDTO(token);
     }
 
-    public String signup(MemberSignupRequestDTO request) {
+    public boolean signup(MemberSignupRequestDTO request) {
         //중복 유저 점검
         boolean existMember = memberRepository.existsById(request.getUserid());
 
         if (existMember)
-            return null;
+            return false;
 
         Member member = new Member(request);
 
         if(request.getRole().equals("MANAGER")){
             member.setRole(Role.MANAGER);
         }else if(request.getRole().equals("USER")){
-            member.setRole(Role.USER);
+            member.setRole(Role.GUEST);
+        }else{
+            return false;
         }
 
         member.encryptPassword(passwordEncoder);
 
-
         memberRepository.save(member);
 
-        return member.getEmail();
+        return true;
     }
 }

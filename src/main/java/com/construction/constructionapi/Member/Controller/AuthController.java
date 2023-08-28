@@ -1,9 +1,9 @@
-package com.construction.constructionapi.SpringSecurity.Controller;
+package com.construction.constructionapi.Member.Controller;
 
-import com.construction.constructionapi.SpringSecurity.DTO.JwtRequestDTO;
-import com.construction.constructionapi.SpringSecurity.DTO.JwtResponseDTO;
-import com.construction.constructionapi.SpringSecurity.DTO.MemberSignupRequestDTO;
-import com.construction.constructionapi.SpringSecurity.Service.AuthService;
+import com.construction.constructionapi.Member.DTO.JwtRequestDTO;
+import com.construction.constructionapi.Member.DTO.JwtResponseDTO;
+import com.construction.constructionapi.Member.DTO.MemberSignupRequestDTO;
+import com.construction.constructionapi.Member.Service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +31,14 @@ public class AuthController {
 
     @PostMapping(value = "signup", produces = MediaType.APPLICATION_JSON_VALUE)
     public String signup(@RequestBody MemberSignupRequestDTO request) {
-        return authService.signup(request);
+
+        boolean isSignup = authService.signup(request);
+
+        if(!isSignup)
+            return "failed";
+
+        return "success";
     }
+
+
 }

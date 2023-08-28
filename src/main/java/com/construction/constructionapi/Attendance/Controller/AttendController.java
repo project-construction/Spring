@@ -4,10 +4,9 @@ package com.construction.constructionapi.Attendance.Controller;
 import com.construction.constructionapi.Attendance.DTO.CodeDTO;
 import com.construction.constructionapi.Attendance.Service.AttendService;
 import com.construction.constructionapi.Attendance.Service.CodeService;
-import com.construction.constructionapi.SpringSecurity.DTO.JwtResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
+import com.construction.constructionapi.Member.Security.JwtTokenProvider;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;

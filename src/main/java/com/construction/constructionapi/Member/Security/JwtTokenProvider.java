@@ -1,6 +1,6 @@
-package com.construction.constructionapi.SpringSecurity.Security;
+package com.construction.constructionapi.Member.Security;
 
-import com.construction.constructionapi.SpringSecurity.Model.Role;
+import com.construction.constructionapi.Member.Model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -44,11 +44,14 @@ public class JwtTokenProvider {
 
         Map<String, Object> claims = new HashMap<>();
 
-        val isManager = userDetails.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_"+ Role.MANAGER));
-        if (isManager) {
-            claims.put("role","manager");
+        if (userDetails.isApproved()) {
+            if (userDetails.isManager()) {
+                claims.put("role", "manager");
+            } else {
+                claims.put("role", "user");
+            }
         } else {
-            claims.put("role","user");
+            claims.put("role", "guest");
         }
 
         val myName = userDetails.getName();

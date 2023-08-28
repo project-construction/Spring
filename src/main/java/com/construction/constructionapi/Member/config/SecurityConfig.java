@@ -1,4 +1,4 @@
-package com.construction.constructionapi.SpringSecurity.config;
+package com.construction.constructionapi.Member.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/attend/**").permitAll()
                 .antMatchers("/notice/**").permitAll()
                 .antMatchers("/unityContent/**").permitAll()
+                .antMatchers("/employee/**").permitAll()
 
                 // '/admin'의 경우 ADMIN 권한이 있는 사용자만 접근이 가능
                 .antMatchers("/admin").hasRole("ADMIN")

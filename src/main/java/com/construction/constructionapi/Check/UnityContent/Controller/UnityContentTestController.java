@@ -2,8 +2,7 @@ package com.construction.constructionapi.Check.UnityContent.Controller;
 
 import com.construction.constructionapi.Check.UnityContent.DTO.TestDTO.*;
 import com.construction.constructionapi.Check.UnityContent.Service.TestService;
-import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
-import io.swagger.v3.oas.annotations.tags.Tag;
+import com.construction.constructionapi.Member.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
