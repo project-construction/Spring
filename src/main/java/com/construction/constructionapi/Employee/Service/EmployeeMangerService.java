@@ -3,6 +3,7 @@ package com.construction.constructionapi.Employee.Service;
 import com.construction.constructionapi.Check.Domain.Score;
 import com.construction.constructionapi.Check.Repository.ScoreRepository;
 import com.construction.constructionapi.Employee.DTO.ResponseInfoDTO;
+import com.construction.constructionapi.Employee.DTO.ResponseNameDTO;
 import com.construction.constructionapi.Employee.DTO.ResponseScoreDTO;
 import com.construction.constructionapi.Member.Domain.Member;
 import com.construction.constructionapi.Member.Model.Role;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,10 +57,17 @@ public class EmployeeMangerService {
         memberRepository.save(member);
     }
 
-    public List<String> getAllWorkerNamesInTeam(String teamName){
-        return memberRepository.findAllByTeamAndRole(teamName, Role.USER).stream()
-                .map(Member::getName)
-                .toList();
+    public List<ResponseNameDTO> getAllWorkerNamesInTeam(String teamName){
+        List<Member> members = memberRepository.findAllByTeamAndRole(teamName, Role.USER);
+
+        return members.stream()
+                .map(member -> {
+                    ResponseNameDTO response = new ResponseNameDTO();
+                    response.setName(member.getName());
+                    response.setEmail(member.getEmail());
+                    return response;
+                })
+                .collect(Collectors.toList());
     }
 
     public ResponseInfoDTO workerInfo(String email){

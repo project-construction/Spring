@@ -1,12 +1,14 @@
 package com.construction.constructionapi.Employee.Controller;
 
 import com.construction.constructionapi.Employee.DTO.ResponseInfoDTO;
+import com.construction.constructionapi.Employee.DTO.ResponseNameDTO;
 import com.construction.constructionapi.Employee.DTO.ResponseScoreDTO;
 import com.construction.constructionapi.Employee.Service.EmployeeMangerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/employee")
@@ -32,7 +34,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/team")
-    public List<String> getAllWorkerNamesInTeam(@RequestParam String teamName) {
+    public List<ResponseNameDTO> AllWorkerNames(@RequestParam String teamName) {
         return employeeMangerService.getAllWorkerNamesInTeam(teamName);
     }
 
