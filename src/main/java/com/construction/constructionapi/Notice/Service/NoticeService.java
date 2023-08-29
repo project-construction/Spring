@@ -38,18 +38,18 @@ public class NoticeService {
     public void updateNotice(NoticeUpdateDTO noticeUpdateDTO){
         Notice newNotice = new Notice();
 
-        newNotice.setId(noticeUpdateDTO.getNotice_id());
-        newNotice.setUserID(noticeRepository.findById(noticeUpdateDTO.getNotice_id()).getUserID());
+        newNotice.setId(noticeUpdateDTO.getId());
+        newNotice.setUserID(noticeRepository.findById(noticeUpdateDTO.getId()).getUserID());
         newNotice.setTitle(noticeUpdateDTO.getTitle());
         newNotice.setContent(noticeUpdateDTO.getContent());
-        newNotice.setWrite_date(noticeRepository.findById(noticeUpdateDTO.getNotice_id()).getWrite_date());
+        newNotice.setWrite_date(noticeRepository.findById(noticeUpdateDTO.getId()).getWrite_date());
 
         noticeRepository.save(newNotice);
     }
 
     // 공지사항 전체 조회
     public List<Notice> allNotice(){
-        return noticeRepository.findAll();
+        return noticeRepository.findAllByOrderByIdDesc();
     }
 
     // 공지사항 상세 내용 조회
@@ -59,17 +59,12 @@ public class NoticeService {
 
     // 공지사항 제목 검색
     public List<Notice> titleNotice(String title){
-        return noticeRepository.findAllByTitleContaining(title);
-    }
-
-    // 공지사항 내용 검색
-    public List<Notice> contentNotice(String content){
-        return noticeRepository.findAllByContentContaining(content);
+        return noticeRepository.findAllByTitleContainingOrderByIdDesc(title);
     }
 
     // 공지사항 작성자 검색
     public List<Notice> writerNotice(String id){
-        return noticeRepository.findAllByUserID(id);
+        return noticeRepository.findAllByUserIDOrderByIdDesc(id);
     }
 
     // 공지사항 학제
