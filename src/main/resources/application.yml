@@ -23,5 +23,5 @@ spring:
 # JWT
 jwt:
   secret: YOUR_SECRET_KEY
-  access-expired: 3600
+  access-expired: 86400
 
