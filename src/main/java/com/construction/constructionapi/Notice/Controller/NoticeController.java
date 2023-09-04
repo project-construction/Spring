@@ -4,7 +4,7 @@ import com.construction.constructionapi.Notice.DTO.NoticeUpdateDTO;
 import com.construction.constructionapi.Notice.DTO.NoticeWriteDTO;
 import com.construction.constructionapi.Notice.Domain.Notice;
 import com.construction.constructionapi.Notice.Service.NoticeService;
-import com.construction.constructionapi.Member.Security.JwtTokenProvider;
+import com.construction.constructionapi.SpringSecurity.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notice")
-@Transactional
 public class NoticeController {
 
     @Autowired
@@ -47,14 +46,7 @@ public class NoticeController {
         return ResponseEntity.ok().body(noticeService.titleNotice(title));
     }
 
-    // 공지사항 내용 검색
-    @GetMapping("/content/{content}")
-    public ResponseEntity<List<Notice>> contentNotice(@PathVariable String content){
-        return ResponseEntity.ok().body(noticeService.contentNotice(content));
-    }
-
     // 공지사항 작성자 검색
-    // 수정 필요
     @GetMapping("writer/{id}")
     public ResponseEntity<List<Notice>> writerNotice(@PathVariable String id){
         return ResponseEntity.ok().body(noticeService.writerNotice(id));
@@ -91,8 +83,8 @@ public class NoticeController {
 
     // 공지사항 수정
     @PostMapping("/update")
-    public ResponseEntity<String> updateNotice(@RequestBody NoticeUpdateDTO noticeWriteDTO){
-        noticeService.updateNotice(noticeWriteDTO);
+    public ResponseEntity<String> updateNotice(@RequestBody NoticeUpdateDTO noticeUpdateDTO){
+        noticeService.updateNotice(noticeUpdateDTO);
         return ResponseEntity.ok().body("success");
     }
 
@@ -101,40 +93,5 @@ public class NoticeController {
     public ResponseEntity<String> deleteNotice(@PathVariable int id){
         noticeService.deleteNotice(id);
         return ResponseEntity.ok().body("success");
-    }
-
-
-
-
-
-    @GetMapping(value = "/check/{id}")
-    public ResponseEntity<String> checkUpdate(HttpServletRequest request,
-                                              @PathVariable int id){
-
-        String token = jwtTokenProvider.resolveToken(request);
-
-        if(token == null || !token.startsWith("Bearer ")){
-            return ResponseEntity.badRequest().body("Invalid token");
-        }
-
-        String jwtToken = token.substring(7);
-
-        if(!jwtTokenProvider.validateToken(jwtToken)){
-            return ResponseEntity.badRequest().body("Invalid token");
-        }
-
-        String userEmail = jwtTokenProvider.getUserPk(jwtToken);
-
-        if(userEmail == null){
-            return ResponseEntity.badRequest().body("Invalid token");
-        }
-
-        String noticeEmail = noticeService.noticeContent(id).getUserID();
-
-        if (noticeEmail.equals(userEmail)) {
-            return ResponseEntity.ok().body("success");
-        }else{
-            return ResponseEntity.badRequest().body("failed");
-        }
     }
 }
