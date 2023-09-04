@@ -16,7 +16,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/notice")
-@Transactional
 public class NoticeController {
 
     @Autowired
@@ -48,7 +47,6 @@ public class NoticeController {
     }
 
     // 공지사항 작성자 검색
-    // 수정 필요
     @GetMapping("writer/{id}")
     public ResponseEntity<List<Notice>> writerNotice(@PathVariable String id){
         return ResponseEntity.ok().body(noticeService.writerNotice(id));

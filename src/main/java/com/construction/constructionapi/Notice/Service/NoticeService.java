@@ -58,9 +58,7 @@ public class NoticeService {
     }
 
     // 공지사항 제목 검색
-    public List<Notice> titleNotice(String title){
-        return noticeRepository.findAllByTitleContainingOrderByIdDesc(title);
-    }
+    public List<Notice> titleNotice(String title){ return noticeRepository.findAllByTitleContainingOrderByIdDesc(title); }
 
     // 공지사항 작성자 검색
     public List<Notice> writerNotice(String id){
