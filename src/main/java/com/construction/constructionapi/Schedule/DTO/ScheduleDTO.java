@@ -10,5 +10,5 @@ import java.util.List;
 public class ScheduleDTO {
 
     private String date;
-    private List<ContentDTO> schedule;
+    private List<ContentDTO> schedules;
 }

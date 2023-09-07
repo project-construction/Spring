@@ -21,7 +21,7 @@ public class ScheduleService {
 
     // 일정 등록
     public void addSchedule(ScheduleDTO scheduleDTO){
-        for(ContentDTO contentDTO : scheduleDTO.getSchedule()){
+        for(ContentDTO contentDTO : scheduleDTO.getSchedules()){
             Schedule newSchedule = new Schedule();
             newSchedule.setDate(scheduleDTO.getDate());
             newSchedule.setTime(contentDTO.getTime());
