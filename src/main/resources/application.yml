@@ -19,9 +19,6 @@ spring:
             descriptor:
               sql: trace
 
-server:
-  port: 8088
-
 # JWT
 jwt:
   secret: YOUR_SECRET_KEY
