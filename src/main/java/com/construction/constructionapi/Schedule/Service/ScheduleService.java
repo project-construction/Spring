@@ -22,7 +22,14 @@ public class ScheduleService {
     // 일정 등록
     public void addSchedule(ScheduleDTO scheduleDTO){
         for(ContentDTO contentDTO : scheduleDTO.getSchedules()){
+
             Schedule newSchedule = new Schedule();
+
+            if (contentDTO.getId() > 0){
+                Schedule schedule = scheduleRepository.findById(contentDTO.getId());
+                newSchedule.setId(schedule.getId());
+            }
+
             newSchedule.setDate(scheduleDTO.getDate());
             newSchedule.setTime(contentDTO.getTime());
             newSchedule.setContent(contentDTO.getContent());
@@ -36,4 +43,9 @@ public class ScheduleService {
         return scheduleRepository.findAllByDateOrderByTimeAsc(date);
     }
 
+
+    // 일정 삭제
+    public void deleteSchedule(long id){
+        scheduleRepository.deleteById(id);
+    }
 }

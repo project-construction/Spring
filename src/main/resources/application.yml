@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://svc.sel3.cloudtype.app:31038/testUnity
+    url: jdbc:mariadb://svc.sel3.cloudtype.app:32707/testUnity
     username: 'root'
     password: '1234'
   jpa:
