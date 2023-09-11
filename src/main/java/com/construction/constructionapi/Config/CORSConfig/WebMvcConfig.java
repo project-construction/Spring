@@ -13,5 +13,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app", "http://localhost:3000")
                 .allowedMethods("GET", "POST", "DELETE");
+
     }
 }

@@ -19,7 +19,6 @@ spring:
             descriptor:
               sql: trace
 
-
 # JWT
 jwt:
   secret: YOUR_SECRET_KEY
