@@ -11,4 +11,6 @@ public interface MemberRepository extends JpaRepository<Member, String> {
     boolean existsByEmail(String email);
     List<Member> findAllByRole(Role role);
     List<Member> findAllByTeamAndRole(String teamName, Role role);
+    void deleteByEmail(String email);
+
 }

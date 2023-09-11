@@ -32,6 +32,12 @@ public class EmployeeController {
         return "success";
     }
 
+    @DeleteMapping("/refuse")
+    public String refuseGuest(@RequestParam String email){
+        employeeMangerService.refuseMember(email);
+        return "success";
+    }
+
     @PostMapping("/team")
     public List<ResponseNameDTO> AllWorkerNames(@RequestParam String teamName) {
         return employeeMangerService.getAllWorkerNamesInTeam(teamName);

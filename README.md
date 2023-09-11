@@ -2,9 +2,18 @@
 
 ## Attendance
   - /attend/check : testDB의 ischeck값 반환
-  - /attend/attend : json로 code값을 받아서 codeDB의 code값과 비교하여 isCheck 변환
+  - /attend/attend : json으로 code값을 받아서 codeDB의 code값과 비교하여 isCheck 변환
   - /attend/login : 토큰에 맞는 그날의 testDB 생성
   - /attend/code : Role이 MANAGER인 경우 codeDB의 오늘 날짜의 team code를 변경가능
+
+## Notice
+  - /notice/write : json으로 title, content 값을 받아 공지사항 작성
+  - /notice/update : json으로 id, title, content 값을 받아 공지사항 수정
+  - /notice/{id} : 공지사항 번호로 공지사항 상세 조회
+  - /notice/writer/{id} : 공지사항 작성자로 공지사항 검색
+  - /notice/title/{title} : 검색어가 제목에 포함된 공지사항 검색
+  - /notice/delete/{id} : 해당 번호의 공지사항 삭제
+  - /notice/all : 공지사항 전체 조회
   
 ## UnityContent
   - /unityContent/insertContent : unity컨텐츠에 대한 점수를 받아 testDB에 저장, isCheck가 true일 시에만 적용

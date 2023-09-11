@@ -9,8 +9,8 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
     void deleteById(int id);
     Notice findById(int id);
-    List<Notice> findAllByUserID(String id);
-    List<Notice> findAllByTitleContaining(String title);
-    List<Notice> findAllByContentContaining(String content);
+    List<Notice> findAllByOrderByIdDesc();
+    List<Notice> findAllByUserIDOrderByIdDesc(String id);
+    List<Notice> findAllByTitleContainingOrderByIdDesc(String title);
 
 }
