@@ -55,6 +55,14 @@ public class EmployeeMangerService {
         memberRepository.save(member);
     }
 
+    @Transactional
+    public void refuseMember(String email){
+        Member member = memberRepository.findById(email)
+                .orElseThrow(() -> new UsernameNotFoundException("이미 제거된 사용자입니다."));
+
+        memberRepository.deleteByEmail(email);
+    }
+
     public List<ResponseNameDTO> getAllWorkerNamesInTeam(String teamName){
         List<Member> members = memberRepository.findAllByTeamAndRole(teamName, Role.USER);
 
