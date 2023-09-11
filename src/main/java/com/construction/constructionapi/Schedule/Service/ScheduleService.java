@@ -46,6 +46,7 @@ public class ScheduleService {
 
     // 일정 삭제
     public void deleteSchedule(long id){
+        if (id == 0) return;
         scheduleRepository.deleteById(id);
     }
 }
