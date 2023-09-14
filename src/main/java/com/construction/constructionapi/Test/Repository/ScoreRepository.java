@@ -13,4 +13,6 @@ public interface ScoreRepository extends JpaRepository<Score, String> {
 
     Score findByUserId(String userId);
     List<Score> findAllByUserId(String userId);
+
+
 }

@@ -17,37 +17,13 @@ public class TestService {
         this.testDAO = testDAO;
     }
 
-    public void fillCatchMole(String userEmail,TestCatchMoleDTO testCatchMoleDTO){
-        testDAO.saveCatchMole(userEmail,testCatchMoleDTO);
+    public void fillScore(String userEmail,TestScoreDTO testScoreDTO){
+        testDAO.saveScore(userEmail,testScoreDTO);
     }
 
-    public void fillDoorLock(String userEmail,TestDoorLockDTO testDoorLockDTO){
-        testDAO.saveDoorLock(userEmail,testDoorLockDTO);
-    }
-
-    public void fillHammering(String userEmail, TestHammeringDTO testHammeringDTO){
-        testDAO.saveHammering(userEmail,testHammeringDTO);
-    }
-
-    public void fillNBack(String userEmail, TestNBackDTO testNBackDTO){
-        testDAO.saveNBack(userEmail,testNBackDTO);
-    }
-
-    public void fillNumberPuzzle(String userEmail, TestNumberPuzzleDTO testNumberPuzzleDTO){
-        testDAO.saveNumber_puzzle(userEmail,testNumberPuzzleDTO);
-    }
-
-    public void fillSimon(String userEmail, TestSimonDTO testSimonDTO){
-        testDAO.saveSimon(userEmail,testSimonDTO);
-    }
-
-    public void fillTrafficLight(String userEmail, TestTrafficLightDTO testTrafficLightDTO){
-        testDAO.saveTrafficLight(userEmail,testTrafficLightDTO);
-    }
-
-    public TestAllDTO findAllById(String userEmail){
+    public TestScoreAllDTO findAllScore(String userEmail){
         Score score = testDAO.findAlLByID(userEmail);
-        TestAllDTO testAllDTO = TestAllDTO.builder()
+        TestScoreAllDTO testAllDTO = TestScoreAllDTO.builder()
                 .anxiety(score.getAnxiety())
                 .date(LocalDate.now().toString())
                 .hammering(score.getHammering())
@@ -64,4 +40,6 @@ public class TestService {
 
         return testAllDTO;
     }
+
+
 }

@@ -73,4 +73,31 @@ public class Score {
         this.isCheck = false;
 
     }
+
+    public void setScore(String name, float score){
+        switch (name){
+            case "catchMole":
+                this.catchMole = ((int) score);
+                break;
+            case "doorLock":
+                this.doorlock = ((int) score);
+                break;
+            case "hammering":
+                this.hammering = (score);
+                break;
+            case "nBack":
+                this.nBack = ((int) score);
+                break;
+            case "numberPuzzle":
+                this.numberPuzzle = ((int) score);
+                break;
+            case "simon":
+                this.simon = ((int) score);
+                break;
+            case "trafficLight":
+                this.trafficLight = (score);
+                break;
+        }
+
+    }
 }
