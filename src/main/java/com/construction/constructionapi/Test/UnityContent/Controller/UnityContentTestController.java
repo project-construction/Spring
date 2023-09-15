@@ -1,6 +1,7 @@
 package com.construction.constructionapi.Test.UnityContent.Controller;
 
 import com.construction.constructionapi.Test.UnityContent.DTO.TestDTO.*;
+import com.construction.constructionapi.Test.UnityContent.Service.ReactionService;
 import com.construction.constructionapi.Test.UnityContent.Service.TestService;
 import com.construction.constructionapi.Member.Security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,22 +10,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/unityContent")
 public class UnityContentTestController {
     private final TestService testService;
+    private final ReactionService reactionService;
     private final JwtTokenProvider jwtTokenProvider;
     @Autowired
-    public UnityContentTestController(TestService testService, JwtTokenProvider jwtTokenProvider){
+    public UnityContentTestController(TestService testService,ReactionService reactionService, JwtTokenProvider jwtTokenProvider){
         this.jwtTokenProvider = jwtTokenProvider;
         this.testService = testService;
+        this.reactionService = reactionService;
     }
 
 
     @GetMapping("/allInfo")
-    public ResponseEntity<TestAllDTO> allTestEntity(HttpServletRequest request){
+    public ResponseEntity<TestAndReactionAllDTO> allTestEntity(HttpServletRequest request){
         String token = jwtTokenProvider.resolveToken(request);
         if(token == null || !token.startsWith("Bearer ")){
             return ResponseEntity.badRequest().build();
@@ -41,20 +43,23 @@ public class UnityContentTestController {
         if(userEmail == null){
             return ResponseEntity.badRequest().build();
         }
-        TestAllDTO testAllDTO;
+        TestScoreAllDTO testAllDTO;
+        ResponseReactionDTO responseReactionDTO;
+        TestAndReactionAllDTO testAndReactionAllDTO = new TestAndReactionAllDTO();
         try{
-            testAllDTO = testService.findAllById(userEmail);
+            testAllDTO = testService.findAllScore(userEmail);
+            responseReactionDTO = reactionService.getAllReaction(userEmail);
         }
         catch (Exception e){
-            return ResponseEntity.badRequest().body(TestAllDTO.builder().build());
+            return ResponseEntity.badRequest().body(testAndReactionAllDTO);
         }
-
-        return ResponseEntity.ok(testAllDTO);
+        testAndReactionAllDTO.mergeAll(responseReactionDTO, testAllDTO);
+        return ResponseEntity.ok().body(testAndReactionAllDTO);
     }
 
 
     @PostMapping("/insertContent")
-    public ResponseEntity<String> doorockContent(HttpServletRequest request , @RequestBody Map<String, Integer> map){
+    public ResponseEntity<String> insertContent(HttpServletRequest request , @RequestBody TestScoreDTO testScoreDTO){
 
         String token = jwtTokenProvider.resolveToken(request);
 
@@ -73,55 +78,17 @@ public class UnityContentTestController {
         if(userEmail == null){
             return ResponseEntity.badRequest().body("Invalid token");
         }
-        try{
-            for (String key:map.keySet()) {
-                switch (key){
-                    case "catchMole":
-                        TestCatchMoleDTO testCatchMoleDTO = new TestCatchMoleDTO();
-                        testCatchMoleDTO.setCatchMole(map.get(key));
-                        testService.fillCatchMole(userEmail, testCatchMoleDTO);
-                        break;
-                    case "doorLock":
-                        TestDoorLockDTO testDoorLockDTO = new TestDoorLockDTO();
-                        testDoorLockDTO.setDoorLock(map.get(key));
-                        testService.fillDoorLock(userEmail, testDoorLockDTO);
-                        break;
-                    case "hammering":
-                        TestHammeringDTO testHammeringDTO = new TestHammeringDTO();
-                        testHammeringDTO.setHammering(map.get(key));
-                        testService.fillHammering(userEmail, testHammeringDTO);
-                        break;
-                    case "nBack":
-                        TestNBackDTO testNBackDTO = new TestNBackDTO();
-                        testNBackDTO.setNBack(map.get(key));
-                        testService.fillNBack(userEmail, testNBackDTO);
-                        break;
-                    case "numberPuzzle":
-                        TestNumberPuzzleDTO testNumberPuzzleDTO = new TestNumberPuzzleDTO();
-                        testNumberPuzzleDTO.setNumber_puzzle(map.get(key));
-                        testService.fillNumberPuzzle(userEmail, testNumberPuzzleDTO);
-                        break;
-                    case "simon":
-                        TestSimonDTO testSimonDTO = new TestSimonDTO();
-                        testSimonDTO.setSimon(map.get(key));
-                        testService.fillSimon(userEmail, testSimonDTO);
-                        break;
-                    case"trafficLight":
-                        TestTrafficLightDTO testTrafficLightDTO = new TestTrafficLightDTO();
-                        testTrafficLightDTO.setTrafficLight(map.get(key));
-                        testService.fillTrafficLight(userEmail, testTrafficLightDTO);
-                        break;
-                }
-            }
+        try {
+            testService.fillScore(userEmail, testScoreDTO);
+            reactionService.saveReaction(userEmail, testScoreDTO);
 
             HttpHeaders headers = new HttpHeaders();
             headers.set("Access-Control-Allow-Origin", "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app");
-            
+
             return ResponseEntity.ok()
                     .headers(headers)
                     .body("success");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.ok().body("failed");
         }
 

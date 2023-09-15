@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class TestAllDTO {
+public class TestScoreAllDTO {
     String userid;
 
     int doorLock;
