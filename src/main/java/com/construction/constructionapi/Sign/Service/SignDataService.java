@@ -27,6 +27,9 @@ public class SignDataService {
         return signImageRepository.save(signImage);
     }
 
+    // pdf 삭제
+    public void deleteNotice(Long id) { signImageRepository.deleteById(id);}
+
     //관리자 리스트 출력
     public List<SignImage> allImages() {
         return signImageRepository.findAll();

@@ -25,6 +25,7 @@ public class SignController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("이미지 데이터 업로드 중 오류가 발생했습니다.");
         }
 
+        System.out.println(requestSignDTO.getEncodeImage());
         try {
             signDataService.saveSignData(requestSignDTO);
             return ResponseEntity.ok("이미지 데이터가 성공적으로 업로드되었습니다. ID: ");
@@ -38,6 +39,13 @@ public class SignController {
     @GetMapping("/manager/all")
     public ResponseEntity<List<SignImage>> allSearchNotice(){
         return ResponseEntity.ok().body(signDataService.allImages());
+    }
+
+    // PDF 삭제
+    @DeleteMapping("/manager/delete/{id}")
+    public ResponseEntity<String> deletePDF(@PathVariable Long id){
+        signDataService.deleteNotice(id);
+        return ResponseEntity.ok().body("success");
     }
 
     //근로자 싸인 저장.
