@@ -3,7 +3,6 @@ package com.construction.constructionapi.Sign.Domain;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -16,9 +15,9 @@ public class SignImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String PDFName;
 
     @Lob
     private String encodedImage;
-    private LocalDate uploadDate;
+    private String uploadDate;
 }

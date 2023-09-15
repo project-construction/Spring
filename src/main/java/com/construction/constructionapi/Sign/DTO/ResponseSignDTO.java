@@ -11,6 +11,6 @@ import java.time.LocalDate;
 @Setter
 @Builder
 public class ResponseSignDTO {
-    private LocalDate uploadDate;
+    private String uploadDate;
     private String encodedImage;
 }
