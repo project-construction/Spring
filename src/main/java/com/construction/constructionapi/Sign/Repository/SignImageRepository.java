@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SignRepository extends JpaRepository<SignImage, Long> {
-    List<SignImage> findAllByEmail(String email);
+public interface SignImageRepository extends JpaRepository<SignImage, Long> {
+    List<SignImage> findAll();
+
 }

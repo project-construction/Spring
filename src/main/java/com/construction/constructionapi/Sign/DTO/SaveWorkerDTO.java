@@ -1,12 +1,14 @@
 package com.construction.constructionapi.Sign.DTO;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class RequestSignDTO {
+public class SaveWorkerDTO {
+
     private String title;
-    private String encodeImage;
-    private String date;
+    private String encode;
+    private String name;
 }
