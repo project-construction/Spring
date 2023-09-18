@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.construction.constructionapi.Member.Model.Role.USER;
-
+import static com.construction.constructionapi.Member.Model.Role.MANAGER;
 
 @Service
 public class CodeService {
@@ -25,7 +24,7 @@ public class CodeService {
     }
 
     public boolean setCode(String email, int code){
-        if(memberRepository.findByEmail(email).getRole()==USER) return false;
+        if(memberRepository.findByEmail(email).getRole()!=MANAGER) return false;
 
         String team = memberRepository.findByEmail(email).getTeam();
         List<AttendCode> attendCodes = codeRepository.findByTeam(team);
