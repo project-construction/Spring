@@ -48,8 +48,8 @@ public class AttendController {
             return ResponseEntity.badRequest().body("Invalid token");
         }
         try {
-            // 출석 체크.
-            if (attendService.checkAttend(userEmail))
+            // 출석 체크
+            if (attendService.testExist(userEmail))
                 return ResponseEntity.ok().body("success");
 
             return ResponseEntity.ok().body("failed");

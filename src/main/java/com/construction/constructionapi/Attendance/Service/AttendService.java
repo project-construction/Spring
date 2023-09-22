@@ -21,6 +21,25 @@ public class AttendService {
         this.memberRepository = memberRepository;
     }
 
+    public boolean testExist(String userEmail) {
+
+        //userid 도출
+        String userId = memberRepository.findByEmail(userEmail).getUserid();
+
+        String today = LocalDate.now().toString();
+
+        System.out.println(userEmail + " " + userId + " " + today);
+        /*System.out.println(scoreRepository.findByUserIdAndDate(userId, today).getStress());*/
+
+        Score score = scoreRepository.findByUserIdAndDate(userId, today);
+
+        if (score != null) {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean checkAttend(String userEmail) {
 
         //userid 도출
