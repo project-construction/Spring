@@ -3,16 +3,19 @@ package com.construction.constructionapi.Test.Domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "reaction")
 public class Reaction {
+
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "reactionId")
+    private Long reactionId;
+    @Column(name = "userId")
     private String userId;
     @Column(name = "hammeringCorrect")
     private Integer hammeringCorrect;

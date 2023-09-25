@@ -75,13 +75,14 @@ public class UnityContentTestController {
 
         String userEmail = jwtTokenProvider.getUserPk(jwtToken);
 
+
         if(userEmail == null){
             return ResponseEntity.badRequest().body("Invalid token");
         }
         try {
             testService.fillScore(userEmail, testScoreDTO);
-            reactionService.saveReaction(userEmail, testScoreDTO);
 
+            reactionService.saveReaction(userEmail, testScoreDTO);
             HttpHeaders headers = new HttpHeaders();
             headers.set("Access-Control-Allow-Origin", "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app");
 

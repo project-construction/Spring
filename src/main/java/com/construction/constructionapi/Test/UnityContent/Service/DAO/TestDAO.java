@@ -28,7 +28,7 @@ public class TestDAO {
     public void saveScore(String userEmail, TestScoreDTO testScoreDTO){
 
         Member member = memberRepository.findByEmail(userEmail);
-        Score score = scoreRepository.findByUserId(member.getUserid());
+        Score score = scoreRepository.findByUserIdAndDate(member.getUserid(), String.valueOf(LocalDate.now()));
 
         if(score == null){
             score = new Score();
