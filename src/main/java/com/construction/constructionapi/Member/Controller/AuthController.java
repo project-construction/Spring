@@ -33,6 +33,8 @@ public class AuthController {
 
         boolean isSignup = authService.signup(request);
 
+        System.out.println(request.getGrade());
+
         if(!isSignup)
             return "failed";
 
