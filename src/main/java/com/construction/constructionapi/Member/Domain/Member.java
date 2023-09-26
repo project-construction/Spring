@@ -3,9 +3,7 @@ package com.construction.constructionapi.Member.Domain;
 
 import com.construction.constructionapi.Member.DTO.MemberSignupRequestDTO;
 import com.construction.constructionapi.Member.Model.Role;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -13,6 +11,8 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 public class Member {
 
@@ -35,6 +35,8 @@ public class Member {
 
     private String address;
 
+    private String grade;
+
     @Enumerated(EnumType.STRING)
     private Role role;
 
@@ -51,6 +53,7 @@ public class Member {
         gender = request.getGender();
         phone = request.getPhone();
         address = request.getAddress();
+        grade = request.getGrade();
         role = Role.USER; // 회원가입하는 사용자 권한 기본 USER (임시)
     }
 

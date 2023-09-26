@@ -67,4 +67,26 @@ public class AuthService {
 
         return true;
     }
+
+    public Member userDetailInfo(String email){
+        return memberRepository.findByEmail(email);
+    }
+
+    public Member updateMember(Member updatedMember){
+
+        Member updatedInfo = Member.builder()
+                .email(updatedMember.getEmail())
+                .userid(updatedMember.getUserid())
+                .password(updatedMember.getPassword())
+                .name(updatedMember.getName())
+                .team(updatedMember.getTeam())
+                .birth(updatedMember.getBirth())
+                .gender(updatedMember.getGender())
+                .phone(updatedMember.getPhone())
+                .address(updatedMember.getAddress())
+                .build();
+
+        return memberRepository.save(updatedMember);
+    }
+
 }

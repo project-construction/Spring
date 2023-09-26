@@ -82,12 +82,7 @@ public class UnityContentTestController {
             testService.fillScore(userEmail, testScoreDTO);
             reactionService.saveReaction(userEmail, testScoreDTO);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.set("Access-Control-Allow-Origin", "https://web-template-3prof2llkxuyz4l.sel4.cloudtype.app");
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body("success");
+            return ResponseEntity.ok().body("success");
         } catch (Exception e) {
             return ResponseEntity.ok().body("failed");
         }
